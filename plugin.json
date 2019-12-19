@@ -1,8 +1,8 @@
 {
-    "id": "com.mattermost.sample-plugin",
-    "name": "Sample Plugin",
-    "description": "This plugin serves as a starting point for writing a Mattermost plugin.",
-    "version": "0.0.1",
+    "id": "guest-login",
+    "name": "MMC Auto login",
+    "description": "Auto login from Mofin App",
+    "version": "1.0.0",
     "server": {
         "executables": {
             "linux-amd64": "server/dist/plugin-linux-amd64",
@@ -16,6 +16,31 @@
     "settings_schema": {
         "header": "",
         "footer": "",
-        "settings": []
+        "settings": [
+            {
+                "key": "HOOK_ID",
+                "display_name": "Webhook ID",
+                "type": "text",
+                "help_text": "Webhook ID",
+                "placeholder": "",
+                "default": ""
+            },
+            {
+                "key": "ADMIN_TOKEN",
+                "display_name": "ADMIN TOKEN",
+                "type": "text",
+                "help_text": "Put your personal token get from Accout Setting -> Security",
+                "placeholder": "",
+                "default": ""
+            },
+            {
+                "key": "TEAM_NAME",
+                "display_name": "TEAM NAME",
+                "type": "text",
+                "help_text": "Setting team default",
+                "placeholder": "TEAM NAME",
+                "default": "first"
+            }
+        ]
     }
 }
