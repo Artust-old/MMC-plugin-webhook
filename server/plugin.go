@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -34,6 +35,8 @@ type Plugin struct {
 }
 
 type BodyGitHub struct {
+	Action  string `json:"action"`
+	Ref     string `json:"ref"`
 	Zen     string `json:"zen"`
 	Hook_id int    `json:"hook_id"`
 	Text    string `json:"text"`
@@ -58,7 +61,9 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 
 	switch r.URL.Path {
 	case "/github":
-		p.GitHub(c, w, r, dataGitHub)
+		if dataGitHub.Action != "" {
+			p.GitHub(c, w, r, dataGitHub)
+		}
 	case "/status":
 		p.handleStatus(w, r)
 	default:
@@ -84,14 +89,14 @@ func (p *Plugin) handleStatus(w http.ResponseWriter, r *http.Request) {
 }
 
 func (p *Plugin) GitHub(c *plugin.Context, w http.ResponseWriter, r *http.Request, dataGitHub BodyGitHub) {
-	dataGitHub.Text = "Call from plugin success!!!!"
-	text := dataGitHub.Zen + " | " + strconv.Itoa(dataGitHub.Hook_id)
-	pushFrom := []byte(`{"text":` + `"` + text + `"}`)
-	data, _ := json.Marshal(dataGitHub)
-	w.Write([]byte(data))
-	w.Write([]byte(pushFrom))
+	pushForm := fmt.Sprintf(`{
+		"text":"
+		*Action:* %s
+		*Branch name:* %s"
+		}`,
+		dataGitHub.Action, dataGitHub.Ref)
 
-	req, err := http.NewRequest("POST", HOOK_URL, bytes.NewBuffer(pushFrom))
+	req, err := http.NewRequest("POST", HOOK_URL, bytes.NewBufferString(pushForm))
 	req.AddCookie(&http.Cookie{Name: "MMAUTHTOKEN", Value: ADMIN_TOKEN})
 	req.Header.Set("Content-Type", "application/json")
 
