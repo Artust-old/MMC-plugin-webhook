@@ -1,3 +1,3 @@
 package main
 
-const PluginId = "guest-login"
+const PluginId = "webhook-plugin"

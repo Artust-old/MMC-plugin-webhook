@@ -1,1 +1,1 @@
-export default 'guest-login';
+export default 'webhook-plugin';

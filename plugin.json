@@ -1,7 +1,7 @@
 {
-    "id": "guest-login",
-    "name": "MMC Auto login",
-    "description": "Auto login from Mofin App",
+    "id": "webhook-plugin",
+    "name": "Webhook plugin",
+    "description": "Webhook plugin",
     "version": "1.0.0",
     "server": {
         "executables": {
@@ -18,10 +18,10 @@
         "footer": "",
         "settings": [
             {
-                "key": "HOOK_ID",
-                "display_name": "Webhook ID",
+                "key": "HOOK_URL",
+                "display_name": "Webhook URL",
                 "type": "text",
-                "help_text": "Webhook ID",
+                "help_text": "Webhook URL",
                 "placeholder": "",
                 "default": ""
             },

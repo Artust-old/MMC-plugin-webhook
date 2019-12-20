@@ -18,7 +18,7 @@ import (
 // If you add non-reference types to your configuration struct, be sure to rewrite Clone as a deep
 // copy appropriate for your types.
 type configuration struct {
-	HOOK_ID     string
+	HOOK_URL    string
 	ADMIN_TOKEN string
 	TEAM_NAME   string
 
@@ -31,7 +31,7 @@ func (c *configuration) Clone() *configuration {
 	// var clone = *c
 	// return &clone
 	return &configuration{
-		HOOK_ID:     c.HOOK_ID,
+		HOOK_URL:    c.HOOK_URL,
 		ADMIN_TOKEN: c.ADMIN_TOKEN,
 		TEAM_NAME:   c.TEAM_NAME,
 	}
